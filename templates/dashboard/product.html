@@ -1,0 +1,75 @@
+{% extends 'partials/base.html' %}
+{% block title %}Product page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+{% include 'partials/topnav.html' %}
+
+
+   <!-- Tables -->
+    <div class="container">
+        <div class="row my-5">
+          <div class="col-md-4">
+            {% for message in messages %}
+          {% if message %}
+          <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+          </div>
+          {% endif %}
+        {% endfor %}
+            <div class="border p-3 bg-white">
+              <h4>Add Products</h4>
+              <hr>
+              <form action="" method="POST">
+                  {% csrf_token %}
+                 {{ form_product|crispy }}
+
+                <input class="btn btn-success btn-block" type="submit" value="Add Product">
+              </form>
+            </div>
+
+          </div>
+          <div class="col-md-8">
+            <table class="table bg-light">
+              <thead class="text-light" style="background-color: #4942E4;">
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for item in items %}
+                <tr>
+                  <td scope="row">{{ item.name }}</td>
+                  <td>{{ item.category }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>
+                    <a href="{% url 'dashboard-product-update' item.id %}" class="btn btn-info btn-sm">Edit</a>
+                    <a href="{% url 'dashboard-product-delete' item.id %}" class="btn btn-danger btn-sm ">Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+    <!-- End Tables -->
+
+
+
+
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+

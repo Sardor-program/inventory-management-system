@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% block title %}Profile page{% endblock %}
+{% load static %}
+{% block content %}
+  <!-- Tables -->
+    <div class="container">
+        <div class="row my-5">
+          <div class="col-md-4">
+
+          </div>
+
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header text-light" style="background-color: #4942E4;">
+                Profile page
+              </div>
+              <dir class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <span class="h4">Profile Information</span> <a class="btn btn-info btn-sm float-end" href="{% url 'profile-update' %}">Edit</a>
+                    <hr>
+                    <table class="table bg-white table-borderless">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Name</th>
+                          <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Email</th>
+                          <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Phone</th>
+                          <td>{{ user.profile.phone }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Address</th>
+                          <td>{{ user.profile.address }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="col-md-4">
+                    <img src="{{ user.profile.image.url }}" alt="Profile photo" style="border-radius: 50%;">
+                  </div>
+                </div>
+              </dir>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- End Tables -->
+{% endblock content %}
+

@@ -1,0 +1,58 @@
+{% extends 'partials/base.html' %}
+{% block title %}Staff page{% endblock %}
+{% block content %}
+
+{% include 'partials/topnav.html' %}
+
+     <!-- Tables -->
+    <div class="container">
+        <div class="row my-5">
+          <div class="col-md-4">
+
+          </div>
+
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header text-light" style="background-color: #4942E4;">
+                Profile page
+              </div>
+              <dir class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <span class="h4">Staff Information</span>
+                    <hr>
+                    <table class="table bg-white table-borderless">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Name</th>
+                          <td>{{ workers.username }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Email</th>
+                          <td>{{ workers.email }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Phone</th>
+                          <td>{{ user.profile.phone }}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Address</th>
+                          <td>{{ workers.profile.address }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div class="col-md-4">
+                    <img src="{{ workers.profile.image.url }}" alt="Profile photo" style="border-radius: 50%;">
+                  </div>
+                </div>
+              </dir>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- End Tables -->
+
+{% endblock content %}
+

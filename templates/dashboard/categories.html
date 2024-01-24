@@ -1,0 +1,67 @@
+{% extends 'partials/base.html' %}
+{% block title %}Category page{% endblock %}
+
+{% block content %}
+
+{% if error == "no" %}
+     <script >
+         alert('Added in successfully');
+       window.location = "{% url 'category-page' %}";
+     </script>
+  {% endif %}
+
+    {% if error == "yes" %}
+     <script>
+       alert('Invalid add try again!');
+        window.location = "{% url 'category-page' %}";
+     </script>
+    {% endif %}
+
+{% include 'partials/topnav.html' %}
+
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="border p-3 bg-white ">
+              <h4>Add Category</h4>
+              <hr>
+              <form method="POST">
+                {% csrf_token %}
+                <label  class="form-label">Name</label>
+                <input type="text" class="form-control"   name="name" >
+
+                <input class="btn btn-success btn-block mt-3" type="submit" value="Add Category">
+              </form>
+
+            </div>
+        </div>
+        <div class="col-md-8">
+            <table class="table bg-light">
+
+              <thead class="text-light" style="background-color: #4942E4;">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Activity</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for i in categories %}
+                <tr>
+                  <td scope="row">{{ i.id }}</td>
+                  <td>{{ i.name }}</td>
+                  <td>
+
+                    <a href="{% url 'category-delete' i.id %}" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm ">Delete</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    </div>
+</div>
+
+
+{% endblock content %}

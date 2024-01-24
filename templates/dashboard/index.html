@@ -1,0 +1,117 @@
+{% extends 'partials/base.html' %}
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated and user.is_staff and user.is_superuser %}
+{% include 'partials/topnav.html' %}
+
+    <!-- Graphs -->
+    <div class="container">
+        <div class="row my-5 d-flex justify-content-around">
+            <div class="col-md-6" style="width: 405px; height: 505px;">
+                <div class="bg-light">
+                <div>
+                    <canvas id="myChart1" width="1000" height="1000"></canvas>
+                  </div>
+
+                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                  <script>
+                    const ctx1 = document.getElementById('myChart1');
+
+                    new Chart(ctx1, {
+                      type: 'pie',
+                      data: {
+                        labels: [{% for order in orders %} '{{ order.product.name }}', {% endfor %}],
+                        datasets: [{
+                          label: 'Orders',
+                          data: [{% for order in orders %} '{{ order.order_quantity }}', {% endfor %}],
+                          backgroundColor: [
+                            '#FF6464',
+                            '#76B2FF',
+                            '#F0ED00',
+                            '#1AA436',
+                            '#B524C1',
+                            '#F3AB05',
+                            '#FA6411',
+                            '#12B2AA',
+                            '#F4ED23',
+                            '#1FA449',
+                            '#B924C9',
+                            '#F1AB11',
+                          ],
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true
+                          }
+                        }
+                      }
+                    });
+                  </script>
+                </div>
+            </div>
+            <!-- ----------------------Border---------------------- -->
+            <div class="col-md-6 ">
+                <div class="bg-light">
+                <div>
+                    <canvas id="myChart" width="400" height="240"></canvas>
+                  </div>
+
+                  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                  <script>
+                    const ctx = document.getElementById('myChart');
+
+                    new Chart(ctx, {
+                      type: 'bar',
+                      data: {
+                        labels: [{% for product in products %} '{{ product.name }}', {% endfor %}],
+                        datasets: [{
+                          label: 'Products',
+                          data: [{% for product in products %} '{{ product.quantity }}', {% endfor %}],
+                          backgroundColor: [
+                            '#FF6464',
+                            '#76B2FF',
+                            '#F0ED00',
+                            '#1AA436',
+                            '#B524C1',
+                            '#F3AB05',
+                            '#FF6123',
+                            '#76B2AF',
+                            '#F0FD90',
+                            '#1AA116',
+                            '#B114A1',
+                            '#F3EB95',
+                          ],
+                          borderWidth: 1
+                        }]
+                      },
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true
+                          }
+                        }
+                      }
+                    });
+                  </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Graphs -->
+
+
+{% else %}
+{% include 'dashboard/staff_index.html' %}
+
+{% endif %}
+{% endblock content %}
+
+
+
